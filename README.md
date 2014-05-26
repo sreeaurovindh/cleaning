@@ -1,4 +1,5 @@
 ** Description **
+
 My Script has only one funciton called CleanData
 
 The five steps that has been outlined in the project has been followed
