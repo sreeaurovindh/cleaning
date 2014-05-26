@@ -51,17 +51,21 @@ cleanData<- function(){
   names(X.totalSet) <- feature.names
   
   #STEP 2 Get All Means and Std deviations
-  means.stds.index <- unlist(sapply(feature.names, function(x) grep("mean()|std()",x)))
+  means.stds.index.list <- sapply(feature.names, function(x) grep("mean()|std()",x))
+  means.stds.index <- sapply(means.stds.index.list,'[',1)
+  means.stds.index[is.na(means.stds.index)] <- 0
+  means.stds.index <- as.numeric(means.stds.index)
   means.stds <- X.totalSet[,means.stds.index]
  
   # STEP 3 : set all  descriptive activity names to name the activities in the data set
   # This code replaces the numeric activity Codes into Labels for the dataset
-  X.totalSet.activity<- merge(X.totalSet,activity.labels,by.x="Activity.Id",by.y="Id")
+  X.totalSet.activity<- merge(X.totalSet,activity.labels,by.x="Activity.ID",by.y="Id")
  
   # Step 4 : GIVEN ABOVE
   
-  #Step 5: 
+  #Step 5: Creates a second, independent tidy data set with the average of each variable for each activity and each subject
   
-  
+  clean.data<-melt(X.totalSet.activity,id=c("Desc","Subject.ID"),measure.vars=feature.names[means.stds.index])
+  write.table(clean.data,file="data.txt")
   
 }
