@@ -1,4 +1,4 @@
-cleanData<- function(){
+CleanData<- function(){
   # Read data from various files
   X.train <- read.table("UCI HAR Dataset\\train\\X_train.txt")
   subject.train <- read.table("UCI HAR Dataset\\train\\subject_train.txt")
